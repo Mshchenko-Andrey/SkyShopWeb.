@@ -62,3 +62,5 @@ public abstract class Product implements Searchable {
         return id.equals(product.id);
     }
 }
+
+

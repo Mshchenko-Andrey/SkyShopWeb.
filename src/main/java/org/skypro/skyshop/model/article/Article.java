@@ -75,3 +75,4 @@ public class Article implements Searchable {
         return Objects.hash(id);
     }
 }
+
