@@ -7,7 +7,6 @@ import org.skypro.skyshop.model.search.SearchResult;
 import org.skypro.skyshop.service.BasketService;
 import org.skypro.skyshop.service.SearchService;
 import org.skypro.skyshop.service.StorageService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -42,15 +41,11 @@ public class ShopController {
     public Collection<SearchResult> search(@RequestParam String pattern) {
         return searchService.search(pattern);
     }
-    
+
     @GetMapping("/basket/{id}")
     public String addProductToBasket(@PathVariable UUID id) {
-        try {
-            basketService.addProduct(id);
-            return "Товар успешно добавлен в корзину!";
-        } catch (IllegalArgumentException e) {
-            return "Ошибка: " + e.getMessage();
-        }
+        basketService.addProduct(id);
+        return "Товар успешно добавлен в корзину!";
     }
 
     @GetMapping("/basket")

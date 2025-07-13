@@ -1,19 +1,19 @@
 package org.skypro.skyshop.service;
 
+import org.skypro.skyshop.exception.NoSuchProductException;
 import org.skypro.skyshop.model.article.Article;
 import org.skypro.skyshop.model.product.*;
 import org.skypro.skyshop.model.search.Searchable;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 @Service
 public class StorageService {
-    private final Map<UUID, Product> products;
-    private final Map<UUID, Article> articles;
+    private final Map<UUID, Product> products = new HashMap<>();
+    private final Map<UUID, Article> articles = new HashMap<>();
 
     public StorageService() {
-        this.products = new HashMap<>();
-        this.articles = new HashMap<>();
         initializeTestData();
     }
 
@@ -38,6 +38,11 @@ public class StorageService {
         return Optional.ofNullable(products.get(id));
     }
 
+    public Product getProductOrThrow(UUID id) {
+        return getProductById(id)
+                .orElseThrow(() -> new NoSuchProductException("Товар с ID " + id + " не найден"));
+    }
+
     public Collection<Product> getAllProducts() {
         return Collections.unmodifiableCollection(products.values());
     }
@@ -53,5 +58,3 @@ public class StorageService {
         return result;
     }
 }
-
-
