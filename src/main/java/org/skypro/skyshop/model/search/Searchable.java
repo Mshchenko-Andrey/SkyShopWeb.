@@ -9,3 +9,4 @@ public interface Searchable {
     String getContentType();
     String getStringRepresentation();
 }
+

@@ -18,19 +18,24 @@ public class StorageService {
     }
 
     private void initializeTestData() {
+        UUID productId1 = UUID.randomUUID();
+        products.put(productId1, new SimpleProduct(productId1, "Java Book", 500));
 
-        products.put(UUID.randomUUID(), new SimpleProduct(
-                UUID.randomUUID(), "Java Book", 500));
-        products.put(UUID.randomUUID(), new DiscountedProduct(
-                UUID.randomUUID(), "Java Course", 10000, 10));
-        products.put(UUID.randomUUID(), new FixPriceProduct(
-                UUID.randomUUID(), "USB Cable"));
+        UUID productId2 = UUID.randomUUID();
+        products.put(productId2, new DiscountedProduct(productId2, "Java Course", 10000, 10));
 
+        UUID productId3 = UUID.randomUUID();
+        products.put(productId3, new FixPriceProduct(productId3, "USB Cable"));
 
-        articles.put(UUID.randomUUID(), new Article(
-                UUID.randomUUID(), "Java News", "Latest Java features"));
-        articles.put(UUID.randomUUID(), new Article(
-                UUID.randomUUID(), "Spring Update", "New Spring features"));
+        UUID articleId1 = UUID.randomUUID();
+        articles.put(articleId1, new Article(articleId1, "Java News", "Latest Java features"));
+
+        UUID articleId2 = UUID.randomUUID();
+        articles.put(articleId2, new Article(articleId2, "Spring Update", "New Spring features"));
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
     }
 
     public Collection<Product> getAllProducts() {
@@ -48,3 +53,5 @@ public class StorageService {
         return result;
     }
 }
+
+
