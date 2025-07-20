@@ -21,7 +21,8 @@ public class BasketService {
     }
 
     public void addProduct(UUID productId) {
-        Product product = storageService.getProductOrThrow(productId);
+        Product product = storageService.getProductById(productId)
+                .orElseThrow(() -> new NoSuchProductException("Product not found"));
         basket.addProduct(productId);
     }
 
@@ -30,7 +31,8 @@ public class BasketService {
 
         List<BasketItem> items = basketProducts.entrySet().stream()
                 .map(entry -> {
-                    Product product = storageService.getProductOrThrow(entry.getKey());
+                    Product product = storageService.getProductById(entry.getKey())
+                            .orElseThrow(() -> new IllegalStateException("Product in basket not found"));
                     return new BasketItem(product, entry.getValue());
                 })
                 .collect(Collectors.toList());
